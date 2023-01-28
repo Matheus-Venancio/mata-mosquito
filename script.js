@@ -2,36 +2,49 @@ var largura = 0
 var altura = 0
 var vidas = 1
 var tempo = 10
+var criaMosquitoTempo = 1500
+//aqui ele retorna o que esta depois do ponto de interrogação, no caso o nivel
+var nivel = window.location.search
 var cronometro = setInterval(function () {
     tempo -= 1
 
     if (tempo < 0) {
-clearInterval(cronometro)
-clearInterval(criaMosca)
-alert('vitoria')
-window.location.href='vitoria.html'
+        clearInterval(cronometro)
+        clearInterval(criaMosca)
+        alert('vitoria')
+        window.location.href = 'vitoria.html'
     } else {
         //Colocando o dado no span
         document.getElementById('cronometro').innerHTML = tempo
     }
 
-
 }, 1000)
 var mosquito = document.createElement('img')
 mosquito.className = tamanho() + " " + lado()
-
-
-
 mosquito.src = 'imagens/mosca.png'
 
-function iniciarjogo(){
+//Localiza o ? e coloca em branco
+nivel = nivel.replace('?', '')
+
+//Definindo o tempo de cada jogo
+if (nivel === 'normal') {
+    criaMosquitoTempo = 1500
+} else if (nivel === 'dificil') {
+    criaMosquitoTempo = 1000
+
+} else if (nivel === 'chucnoris') {
+    criaMosquitoTempo = 750
+
+}
+
+function iniciarjogo() {
     var nivel = document.getElementById('nivel').value
 
-    if(nivel===""){
+    if (nivel === "") {
         alert("Selecione um nivel")
         return false
     }
-    alert(nivel)
+    window.location.href = 'index.html?' + nivel
 }
 
 function ajustaTamanho() {
@@ -108,9 +121,9 @@ function lado() {
 
 
 //A cada 1 segundo ele aparece um mosquito
-var criaMosca=setInterval(function () {
+var criaMosca = setInterval(function () {
     posicao()
-}, 2000)
+}, criaMosquitoTempo)
 
 //Clicando no mosquito
 mosquito.onclick = function () {
