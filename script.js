@@ -1,7 +1,9 @@
 var largura = 0
 var altura = 0
+var vidas = 1
 var mosquito = document.createElement('img')
-mosquito.className = tamanho() +  " " + lado()
+mosquito.className = tamanho() + " " + lado()
+
 
 
 mosquito.src = 'imagens/mosca.png'
@@ -13,6 +15,23 @@ function ajustaTamanho() {
 ajustaTamanho()
 
 function posicao() {
+    //Testando se existe
+    if (document.getElementById('mosquito')) {
+        //Remover o moesquito anterior
+        document.getElementById('mosquito').remove()
+
+        if (vidas > 3) {
+            alert('game over');
+        } else {
+            //Apagando os corações
+            document.getElementById('v' + vidas).src = "imagens/coracao_vazio.png"
+            //Depois que passar, ele tira a outra vida
+            vidas++
+        }
+
+    }
+
+    //Posição aleatoria
     var posixaoX = Math.floor(Math.random() * largura) - 90//floor diuminui as cass decimais, e o rando o numero aleatorio
     var posixaoY = Math.floor(Math.random() * altura) - 90
 
@@ -27,12 +46,12 @@ function posicao() {
     mosquito.style.left = posixaoX + 'px'
     mosquito.style.top = posixaoY + 'px'
     mosquito.style.position = 'absolute'
+    mosquito.id = 'mosquito'
 
     tamanho()
     lado()
 }
 
-posicao()
 
 function tamanho() {
     var classe = Math.floor(Math.random() * 3)
@@ -48,7 +67,7 @@ function tamanho() {
     }
 }
 
-function lado(){
+function lado() {
     var classe = Math.floor(Math.random() * 2)
 
     //Tomando decisão
@@ -60,6 +79,15 @@ function lado(){
     }
 }
 
+//A cada 1 segundo ele aparece um mosquito
+setInterval(function () {
+    posicao()
+}, 2000)
+
+//Clicando no mosquito
+mosquito.onclick = function () {
+    this.remove()//Ajustando o contexto para remover, referencia ao html que executa a função
+}
 
 
 
