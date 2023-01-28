@@ -1,7 +1,7 @@
 var largura = 0
 var altura = 0
 var mosquito = document.createElement('img')
-mosquito.className = tamanho()
+mosquito.className = tamanho() +  " " + lado()
 
 
 mosquito.src = 'imagens/mosca.png'
@@ -29,6 +29,7 @@ function posicao() {
     mosquito.style.position = 'absolute'
 
     tamanho()
+    lado()
 }
 
 posicao()
@@ -44,6 +45,18 @@ function tamanho() {
             return 'mosquito2'
         case 2:
             return 'mosquito3'
+    }
+}
+
+function lado(){
+    var classe = Math.floor(Math.random() * 2)
+
+    //Tomando decisão
+    switch (classe) {
+        case 0:
+            return 'ladoA'
+        case 1:
+            return 'ladoB'
     }
 }
 
